@@ -1,11 +1,10 @@
 package co.edu.uco.expuco.datos.dao.sqlserver;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import co.edu.uco.expuco.datos.dao.UsuarioDAO;
 import co.edu.uco.expuco.datos.dao.sql.SQLDAO;
@@ -19,20 +18,6 @@ public final class UsuarioSqlServerDAO extends SQLDAO implements UsuarioDAO {
 
 	public UsuarioSqlServerDAO(final Connection conexion) {
 		super(conexion);
-	}
-
-	@Override
-	public List<UsuarioEntidad> consultarTodos() {
-		final List<UsuarioEntidad> resultado = new ArrayList<>();
-		try (PreparedStatement ps = getConexion().prepareStatement(UsuarioSql.CONSULTAR_TODOS);
-				ResultSet rs = ps.executeQuery()) {
-			while (rs.next()) {
-				resultado.add(UsuarioMapper.obtenerInstancia().mapear(rs));
-			}
-		} catch (final SQLException e) {
-			throw ExpUcoException.crear(e, "Error al consultar los usuarios.", e.getMessage());
-		}
-		return resultado;
 	}
 
 	@Override
@@ -53,8 +38,12 @@ public final class UsuarioSqlServerDAO extends SQLDAO implements UsuarioDAO {
 	@Override
 	public void crear(final UsuarioEntidad usuario) {
 		try (PreparedStatement ps = getConexion().prepareStatement(UsuarioSql.CREAR)) {
-			ps.setString(1, usuario.getNombre());
-			ps.setLong(2, usuario.getDocumento());
+			ps.setLong(1, usuario.getDocumento());
+			ps.setString(2, usuario.getRol());
+			ps.setString(3, usuario.getNombres());
+			ps.setString(4, usuario.getApellidos());
+			ps.setDate(5, Date.valueOf(usuario.getFechaNacimiento()));
+			ps.setString(6, usuario.getCorreo());
 			ps.executeUpdate();
 		} catch (final SQLException e) {
 			throw ExpUcoException.crear(e, "Error al registrar el usuario.", e.getMessage());

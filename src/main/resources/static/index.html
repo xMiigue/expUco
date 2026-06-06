@@ -14,50 +14,56 @@
     </header>
 
     <main>
-        <!-- ===== PANTALLA 1: IDENTIFICACION (lo primero que se ve) ===== -->
-        <section id="pantallaIdentificacion" class="tarjeta-centro">
-            <h2>Identificate</h2>
-            <p>Ingresa tu numero de documento para continuar.</p>
+        <div id="banner" class="banner oculto"></div>
 
-            <label for="inputDocumento">Numero de documento:</label>
-            <input type="text" id="inputDocumento" inputmode="numeric" placeholder="Ej: 10000001" maxlength="10">
-            <button id="btnIdentificar">Ingresar</button>
-
-            <div id="msgIdentificacion" class="msg oculto"></div>
-
-            <!-- Sub-formulario de registro: aparece solo si el documento no existe -->
-            <div id="formRegistro" class="oculto">
-                <hr>
-                <h3>No encontramos ese documento</h3>
-                <p>Registrate para continuar:</p>
-
-                <label for="inputNombre">Nombre:</label>
-                <input type="text" id="inputNombre" placeholder="Tu nombre">
-
-                <label for="inputDocumentoRegistro">Documento:</label>
-                <input type="text" id="inputDocumentoRegistro" inputmode="numeric" maxlength="10" readonly>
-
-                <button id="btnRegistrar">Registrarme</button>
-                <div id="msgRegistro" class="msg oculto"></div>
-            </div>
-        </section>
-
-        <!-- ===== PANTALLA 2: APP (oculta hasta identificarse) ===== -->
-        <section id="pantallaApp" class="oculto">
-            <div class="barra-usuario">
-                <span id="saludoUsuario"></span>
-                <button id="btnSalir" class="boton-secundario">Salir</button>
-            </div>
-
-            <div id="banner" class="banner oculto"></div>
-
-            <h2>Eventos disponibles</h2>
-            <div id="listaEventos"></div>
-
-            <h2>Mis eventos inscritos</h2>
-            <div id="misEventos"></div>
-        </section>
+        <h2>Eventos disponibles</h2>
+        <div id="listaEventos"></div>
     </main>
+
+    <!-- ===== MODAL DE INSCRIPCION (formulario de dos pasos) ===== -->
+    <div id="modal" class="modal oculto">
+        <div class="modal-contenido">
+            <button id="btnCerrarModal" class="cerrar-modal" type="button">&times;</button>
+            <h2 id="modalTitulo">Inscripcion</h2>
+
+            <!-- PASO 1: rol + documento -->
+            <div id="paso1">
+                <p class="paso-indicador">Paso 1 de 2</p>
+
+                <label>Selecciona tu rol:</label>
+                <div class="opciones-rol">
+                    <button type="button" class="opcion-rol" data-rol="Estudiante">Estudiante</button>
+                    <button type="button" class="opcion-rol" data-rol="Docente">Docente</button>
+                </div>
+
+                <label for="inputDocumento">Numero de documento:</label>
+                <input type="text" id="inputDocumento" inputmode="numeric" maxlength="10" placeholder="Solo numeros">
+
+                <div id="msgPaso1" class="msg oculto"></div>
+                <button id="btnContinuar" type="button">Continuar</button>
+            </div>
+
+            <!-- PASO 2: datos personales -->
+            <div id="paso2" class="oculto">
+                <p class="paso-indicador">Paso 2 de 2</p>
+
+                <label for="inputNombres">Nombres:</label>
+                <input type="text" id="inputNombres">
+
+                <label for="inputApellidos">Apellidos:</label>
+                <input type="text" id="inputApellidos">
+
+                <label for="inputFechaNacimiento">Fecha de nacimiento:</label>
+                <input type="date" id="inputFechaNacimiento">
+
+                <label for="inputCorreo">Correo electronico:</label>
+                <input type="email" id="inputCorreo" placeholder="ejemplo@correo.com">
+
+                <div id="msgPaso2" class="msg oculto"></div>
+                <button id="btnConfirmar" type="button">Confirmar inscripcion</button>
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>

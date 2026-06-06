@@ -1,17 +1,23 @@
 package co.edu.uco.expuco.negocio.casouso.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
 
 import co.edu.uco.expuco.datos.fabrica.FabricaDAO;
 import co.edu.uco.expuco.dto.ResultadoInscripcionDTO;
 import co.edu.uco.expuco.entidad.EventoEntidad;
 import co.edu.uco.expuco.entidad.InscripcionEntidad;
+import co.edu.uco.expuco.entidad.UsuarioEntidad;
 import co.edu.uco.expuco.negocio.casouso.InscribirCasoUso;
 
-// Implementacion del caso de uso de inscripcion: valida las 3 reglas EN ORDEN.
-// Si alguna falla, devuelve el motivo y NO inserta. Si todas pasan, inserta la inscripcion.
+// Implementacion del caso de uso de inscripcion: valida las reglas EN ORDEN.
+// Si alguna falla, devuelve el motivo y NO inserta. Si todas pasan, crea la persona (si es nueva) e inserta.
 public final class InscribirCasoUsoImpl implements InscribirCasoUso {
+
+	// Edad minima para poder inscribirse (aplica a TODOS los roles).
+	private static final int EDAD_MINIMA = 18;
 
 	private final FabricaDAO fabricaDAO;
 
@@ -21,7 +27,7 @@ public final class InscribirCasoUsoImpl implements InscribirCasoUso {
 	}
 
 	@Override
-	public ResultadoInscripcionDTO ejecutar(final Long usuarioId, final Long eventoId) {
+	public ResultadoInscripcionDTO ejecutar(final UsuarioEntidad persona, final Long eventoId) {
 
 		// Buscamos el evento al que se quiere inscribir.
 		final EventoEntidad evento = fabricaDAO.obtenerEventoDAO().consultarPorId(eventoId);
@@ -42,28 +48,49 @@ public final class InscribirCasoUsoImpl implements InscribirCasoUso {
 			return fallo("No hay cupos disponibles para este evento.");
 		}
 
-		// REGLA 3 - CHOQUE DE HORARIO: no puede cruzarse con otro evento ya inscrito.
+		// Buscamos a la persona por documento (puede que ya exista de una inscripcion anterior).
+		UsuarioEntidad usuario = fabricaDAO.obtenerUsuarioDAO().consultarPorDocumento(persona.getDocumento());
+
+		// REGLA 3 - CHOQUE DE HORARIO: solo aplica si la persona ya tiene inscripciones.
 		// Se cruzan si:  nuevo.inicio < otro.fin  Y  otro.inicio < nuevo.fin.
-		final List<EventoEntidad> eventosDelUsuario =
-				fabricaDAO.obtenerInscripcionDAO().consultarEventosPorUsuario(usuarioId);
-		for (final EventoEntidad otro : eventosDelUsuario) {
-			final boolean seCruzan = evento.getFechaInicio().isBefore(otro.getFechaFin())
-					&& otro.getFechaInicio().isBefore(evento.getFechaFin());
-			if (seCruzan) {
-				return fallo("Choque de horario con tu evento ya inscrito: " + otro.getNombre() + ".");
+		if (usuario != null) {
+			final List<EventoEntidad> eventosDelUsuario =
+					fabricaDAO.obtenerInscripcionDAO().consultarEventosPorUsuario(usuario.getId());
+			for (final EventoEntidad otro : eventosDelUsuario) {
+				final boolean seCruzan = evento.getFechaInicio().isBefore(otro.getFechaFin())
+						&& otro.getFechaInicio().isBefore(evento.getFechaFin());
+				if (seCruzan) {
+					return fallo("Choque de horario con tu evento ya inscrito: " + otro.getNombre() + ".");
+				}
 			}
 		}
 
-		// Las 3 reglas pasaron -> insertamos la inscripcion.
+		// REGLA 4 - EDAD: TODA persona debe ser mayor o igual a 18 anios, SIN IMPORTAR EL ROL.
+		if (persona.getFechaNacimiento() == null) {
+			return fallo("La fecha de nacimiento es obligatoria.");
+		}
+		final int edad = Period.between(persona.getFechaNacimiento(), LocalDate.now()).getYears();
+		if (edad < EDAD_MINIMA) {
+			return fallo("Debes ser mayor o igual a 18 anios para inscribirte.");
+		}
+
+		// Si la persona no existe, la creamos ahora (ya pasaron todas las reglas).
+		if (usuario == null) {
+			fabricaDAO.obtenerUsuarioDAO().crear(persona);
+			usuario = fabricaDAO.obtenerUsuarioDAO().consultarPorDocumento(persona.getDocumento());
+		}
+
+		// Insertamos la inscripcion.
 		final InscripcionEntidad inscripcion = new InscripcionEntidad.Builder()
-				.usuarioId(usuarioId)
+				.usuarioId(usuario.getId())
 				.eventoId(eventoId)
 				.build();
 		fabricaDAO.obtenerInscripcionDAO().crear(inscripcion);
 
 		return new ResultadoInscripcionDTO.Builder()
 				.exitoso(true)
-				.motivo("Inscripcion exitosa a: " + evento.getNombre() + ".")
+				.motivo("Inscripcion exitosa a: " + evento.getNombre()
+						+ ". Se enviara una confirmacion al correo " + persona.getCorreo() + ".")
 				.build();
 	}
 

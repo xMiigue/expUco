@@ -1,17 +1,13 @@
 package co.edu.uco.expuco.datos.dao;
 
-import java.util.List;
-
 import co.edu.uco.expuco.entidad.UsuarioEntidad;
 
-// Contrato del DAO de usuario: listar, buscar por documento y crear.
+// Contrato del DAO de usuario: buscar por documento y crear.
 public interface UsuarioDAO {
 
-	List<UsuarioEntidad> consultarTodos();
-
-	// Busca un usuario por su numero de documento (para identificacion). Null si no existe.
+	// Busca un usuario por su documento. Null si no existe (para crearlo al inscribirse).
 	UsuarioEntidad consultarPorDocumento(Long documento);
 
-	// Inserta un usuario nuevo (registro en vivo).
+	// Inserta un usuario nuevo con sus datos.
 	void crear(UsuarioEntidad usuario);
 }

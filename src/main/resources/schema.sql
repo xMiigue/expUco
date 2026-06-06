@@ -3,12 +3,16 @@ DROP TABLE IF EXISTS inscripcion;
 DROP TABLE IF EXISTS evento;
 DROP TABLE IF EXISTS usuario;
 
--- Usuarios de la plataforma. El id lo genera SQL Server (IDENTITY) para el registro en vivo.
--- documento: numerico, obligatorio y unico (sirve para identificarse al entrar).
+-- Usuarios de la plataforma. El id lo genera SQL Server (IDENTITY); se crean al inscribirse.
+-- documento: numerico, obligatorio y unico. Guardamos rol, nombres, apellidos, nacimiento y correo.
 CREATE TABLE usuario (
     id BIGINT IDENTITY(1,1) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    documento BIGINT NOT NULL UNIQUE
+    documento BIGINT NOT NULL UNIQUE,
+    rol VARCHAR(20) NOT NULL,
+    nombres VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    correo VARCHAR(150) NOT NULL
 );
 
 -- Eventos a los que la gente se inscribe.

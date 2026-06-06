@@ -1,10 +1,8 @@
 -- Datos de demo (SQL Server). Fechas RELATIVAS A HOY con DATEADD + GETDATE(),
 -- ancladas a la medianoche de hoy:  CAST(CAST(GETDATE() AS DATE) AS DATETIME2)
--- Asi la demo de las 3 reglas funciona cualquier dia.
-
--- UN SOLO usuario de demo: Miguel. El id lo genera IDENTITY; nos identificamos por su documento.
--- (Edwin y Farid se registraran EN VIVO desde la pantalla de identificacion.)
-INSERT INTO usuario (nombre, documento) VALUES ('Miguel', 10000001);
+-- Asi la demo de las reglas funciona cualquier dia.
+--
+-- NO precargamos usuarios: las personas se crean al inscribirse desde el formulario.
 
 -- 1) Conferencia IA: dentro de 2 dias 10:00-12:00, inscripcion ABIERTA y con cupos -> SE PUEDE inscribir.
 INSERT INTO evento (id, nombre, lugar, fecha_inicio, fecha_fin, inscripcion_inicio, inscripcion_fin, capacidad)
@@ -24,8 +22,7 @@ VALUES (2, 'Fiesta de la UCO', 'Sala multimedia',
         DATEADD(HOUR, 9, DATEADD(DAY, 2, CAST(CAST(GETDATE() AS DATE) AS DATETIME2))),
         30);
 
--- 3) Celebracion Diseno Orientado a Objetos: capacidad 2 -> sirve para demostrar SIN CUPOS
---    (se llena registrando 2 usuarios en vivo e inscribiendolos aqui).
+-- 3) Celebracion Diseno Orientado a Objetos: capacidad 2 -> sirve para demostrar SIN CUPOS.
 INSERT INTO evento (id, nombre, lugar, fecha_inicio, fecha_fin, inscripcion_inicio, inscripcion_fin, capacidad)
 VALUES (3, 'Celebracion Diseno Orientado a Objetos', 'Salon EDC',
         DATEADD(HOUR, 14, DATEADD(DAY, 3, CAST(CAST(GETDATE() AS DATE) AS DATETIME2))),

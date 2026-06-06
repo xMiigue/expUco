@@ -42,54 +42,6 @@ h2 {
     padding-bottom: 4px;
 }
 
-/* Tarjeta centrada para la pantalla de identificacion */
-.tarjeta-centro {
-    max-width: 420px;
-    margin: 24px auto;
-    border: 1px solid #2e7d32;
-    border-radius: 8px;
-    padding: 24px;
-}
-
-.tarjeta-centro h2 {
-    margin-top: 0;
-}
-
-/* Campos de formulario */
-label {
-    display: block;
-    font-weight: bold;
-    margin: 10px 0 4px;
-}
-
-input[type="text"] {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 8px 10px;
-    border: 1px solid #2e7d32;
-    border-radius: 4px;
-    font-size: 15px;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid #c8e6c9;
-    margin: 20px 0;
-}
-
-/* Barra superior con el saludo y el boton salir */
-.barra-usuario {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-#saludoUsuario {
-    font-weight: bold;
-    font-size: 18px;
-}
-
 /* Tarjetas de eventos */
 .tarjeta {
     border: 1px solid #2e7d32;
@@ -123,18 +75,25 @@ button:hover {
     background-color: #1b5e20;
 }
 
-.boton-secundario {
-    background-color: #ffffff;
-    color: #2e7d32;
+/* Campos de formulario */
+label {
+    display: block;
+    font-weight: bold;
+    margin: 12px 0 4px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
     border: 1px solid #2e7d32;
-    margin-top: 0;
+    border-radius: 4px;
+    font-size: 15px;
 }
 
-.boton-secundario:hover {
-    background-color: #e8f5e9;
-}
-
-/* Banner de resultado de inscripcion */
+/* Banner de resultado */
 .banner {
     padding: 12px 16px;
     border-radius: 6px;
@@ -142,7 +101,6 @@ button:hover {
     font-weight: bold;
 }
 
-/* Mensajes pequeños de validacion */
 .msg {
     margin-top: 12px;
     padding: 8px 12px;
@@ -162,6 +120,89 @@ button:hover {
     border: 1px solid #b71c1c;
 }
 
+/* Importante: !important para que "oculto" SIEMPRE oculte, aunque otra clase
+   (como .modal) defina su propio display mas abajo en este archivo. */
 .oculto {
-    display: none;
+    display: none !important;
+}
+
+/* ===== Modal de inscripcion ===== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(27, 94, 32, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.modal-contenido {
+    background-color: #ffffff;
+    border: 2px solid #2e7d32;
+    border-radius: 8px;
+    padding: 24px;
+    width: 100%;
+    max-width: 440px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-contenido h2 {
+    margin-top: 0;
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: none;
+    color: #1b5e20;
+    font-size: 26px;
+    line-height: 1;
+    padding: 0 6px;
+    margin: 0;
+}
+
+.cerrar-modal:hover {
+    background: none;
+    color: #b71c1c;
+}
+
+.paso-indicador {
+    color: #2e7d32;
+    font-weight: bold;
+    margin: 0 0 8px;
+}
+
+/* Opciones de rol (dos tarjetas seleccionables) */
+.opciones-rol {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.opcion-rol {
+    flex: 1;
+    background-color: #ffffff;
+    color: #2e7d32;
+    border: 2px solid #2e7d32;
+    padding: 14px;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.opcion-rol:hover {
+    background-color: #e8f5e9;
+}
+
+/* Tarjeta de rol elegida */
+.opcion-rol.seleccionada {
+    background-color: #2e7d32;
+    color: #ffffff;
 }

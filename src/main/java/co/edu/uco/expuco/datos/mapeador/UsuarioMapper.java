@@ -21,8 +21,12 @@ public final class UsuarioMapper {
 	public UsuarioEntidad mapear(final ResultSet rs) throws SQLException {
 		return new UsuarioEntidad.Builder()
 				.id(rs.getLong("id"))
-				.nombre(rs.getString("nombre"))
 				.documento(rs.getLong("documento"))
+				.rol(rs.getString("rol"))
+				.nombres(rs.getString("nombres"))
+				.apellidos(rs.getString("apellidos"))
+				.fechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate())
+				.correo(rs.getString("correo"))
 				.build();
 	}
 }
