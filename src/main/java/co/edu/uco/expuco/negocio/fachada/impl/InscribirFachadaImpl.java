@@ -15,7 +15,7 @@ public final class InscribirFachadaImpl implements InscribirFachada {
 
 	@Override
 	public ResultadoInscripcionDTO ejecutar(final InscripcionDTO datos) {
-		final FabricaDAO fabricaDAO = FabricaDAO.obtenerInstancia(FabricaEnum.H2);
+		final FabricaDAO fabricaDAO = FabricaDAO.obtenerInstancia(FabricaEnum.SQL_SERVER);
 		try {
 			fabricaDAO.abrirConexion();
 			fabricaDAO.iniciarTransaccion();

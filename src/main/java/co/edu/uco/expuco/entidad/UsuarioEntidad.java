@@ -5,11 +5,13 @@ public final class UsuarioEntidad {
 
 	private Long id;
 	private String nombre;
+	private Long documento;
 
 	private UsuarioEntidad(final Builder builder) {
 		super();
 		this.id = builder.id;
 		this.nombre = builder.nombre;
+		this.documento = builder.documento;
 	}
 
 	public Long getId() {
@@ -20,10 +22,15 @@ public final class UsuarioEntidad {
 		return nombre;
 	}
 
+	public Long getDocumento() {
+		return documento;
+	}
+
 	public static final class Builder {
 
 		private Long id;
 		private String nombre;
+		private Long documento;
 
 		public Builder id(final Long id) {
 			this.id = id;
@@ -32,6 +39,11 @@ public final class UsuarioEntidad {
 
 		public Builder nombre(final String nombre) {
 			this.nombre = nombre;
+			return this;
+		}
+
+		public Builder documento(final Long documento) {
+			this.documento = documento;
 			return this;
 		}
 

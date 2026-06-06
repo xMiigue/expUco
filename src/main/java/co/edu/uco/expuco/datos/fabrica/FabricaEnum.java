@@ -1,6 +1,6 @@
 package co.edu.uco.expuco.datos.fabrica;
 
-// Tipos de fabrica de DAO soportados. ExpUco solo usa H2.
+// Tipos de fabrica de DAO soportados. ExpUco usa SQL Server.
 public enum FabricaEnum {
-	H2
+	SQL_SERVER
 }

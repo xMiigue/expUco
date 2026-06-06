@@ -22,6 +22,7 @@ public final class UsuarioMapper {
 		return new UsuarioEntidad.Builder()
 				.id(rs.getLong("id"))
 				.nombre(rs.getString("nombre"))
+				.documento(rs.getLong("documento"))
 				.build();
 	}
 }

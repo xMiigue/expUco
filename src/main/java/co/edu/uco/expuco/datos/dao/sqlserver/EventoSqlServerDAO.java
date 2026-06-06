@@ -1,4 +1,4 @@
-package co.edu.uco.expuco.datos.dao.h2;
+package co.edu.uco.expuco.datos.dao.sqlserver;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,10 +14,10 @@ import co.edu.uco.expuco.datos.sql.EventoSql;
 import co.edu.uco.expuco.entidad.EventoEntidad;
 import co.edu.uco.expuco.transversal.excepcion.ExpUcoException;
 
-// Implementacion del EventoDAO sobre H2 usando JDBC puro.
-public final class EventoH2DAO extends SQLDAO implements EventoDAO {
+// Implementacion del EventoDAO sobre SQL Server usando JDBC puro.
+public final class EventoSqlServerDAO extends SQLDAO implements EventoDAO {
 
-	public EventoH2DAO(final Connection conexion) {
+	public EventoSqlServerDAO(final Connection conexion) {
 		super(conexion);
 	}
 

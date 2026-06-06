@@ -11,12 +11,23 @@ body {
 header {
     background-color: #2e7d32;
     color: #ffffff;
-    padding: 16px 24px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+header .logo {
+    height: 48px;
+    width: auto;
+    background-color: #ffffff;
+    padding: 4px;
+    border-radius: 6px;
 }
 
 header h1 {
     margin: 0;
-    font-size: 22px;
+    font-size: 20px;
 }
 
 main {
@@ -31,21 +42,52 @@ h2 {
     padding-bottom: 4px;
 }
 
-/* Seleccion de usuario */
-.seleccion {
-    margin-bottom: 16px;
+/* Tarjeta centrada para la pantalla de identificacion */
+.tarjeta-centro {
+    max-width: 420px;
+    margin: 24px auto;
+    border: 1px solid #2e7d32;
+    border-radius: 8px;
+    padding: 24px;
 }
 
-.seleccion label {
+.tarjeta-centro h2 {
+    margin-top: 0;
+}
+
+/* Campos de formulario */
+label {
+    display: block;
     font-weight: bold;
-    margin-right: 8px;
+    margin: 10px 0 4px;
 }
 
-select {
-    padding: 6px 10px;
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
     border: 1px solid #2e7d32;
     border-radius: 4px;
     font-size: 15px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #c8e6c9;
+    margin: 20px 0;
+}
+
+/* Barra superior con el saludo y el boton salir */
+.barra-usuario {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+#saludoUsuario {
+    font-weight: bold;
+    font-size: 18px;
 }
 
 /* Tarjetas de eventos */
@@ -74,14 +116,25 @@ button {
     border-radius: 4px;
     font-size: 15px;
     cursor: pointer;
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 button:hover {
     background-color: #1b5e20;
 }
 
-/* Banner de resultado */
+.boton-secundario {
+    background-color: #ffffff;
+    color: #2e7d32;
+    border: 1px solid #2e7d32;
+    margin-top: 0;
+}
+
+.boton-secundario:hover {
+    background-color: #e8f5e9;
+}
+
+/* Banner de resultado de inscripcion */
 .banner {
     padding: 12px 16px;
     border-radius: 6px;
@@ -89,13 +142,21 @@ button:hover {
     font-weight: bold;
 }
 
-.banner.exito {
+/* Mensajes pequeños de validacion */
+.msg {
+    margin-top: 12px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.exito {
     background-color: #e8f5e9;
     color: #1b5e20;
     border: 1px solid #2e7d32;
 }
 
-.banner.error {
+.error {
     background-color: #ffebee;
     color: #b71c1c;
     border: 1px solid #b71c1c;

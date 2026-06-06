@@ -9,23 +9,53 @@
 <body>
 
     <header>
+        <img src="logo-uco.png" class="logo" alt="Logo Universidad">
         <h1>Plataforma de Inscripcion a Eventos</h1>
     </header>
 
     <main>
-        <!-- Paso 1: elegir quien se inscribe -->
-        <section class="seleccion">
-            <label for="selectUsuario">Usuario:</label>
-            <select id="selectUsuario"></select>
+        <!-- ===== PANTALLA 1: IDENTIFICACION (lo primero que se ve) ===== -->
+        <section id="pantallaIdentificacion" class="tarjeta-centro">
+            <h2>Identificate</h2>
+            <p>Ingresa tu numero de documento para continuar.</p>
+
+            <label for="inputDocumento">Numero de documento:</label>
+            <input type="text" id="inputDocumento" inputmode="numeric" placeholder="Ej: 10000001" maxlength="10">
+            <button id="btnIdentificar">Ingresar</button>
+
+            <div id="msgIdentificacion" class="msg oculto"></div>
+
+            <!-- Sub-formulario de registro: aparece solo si el documento no existe -->
+            <div id="formRegistro" class="oculto">
+                <hr>
+                <h3>No encontramos ese documento</h3>
+                <p>Registrate para continuar:</p>
+
+                <label for="inputNombre">Nombre:</label>
+                <input type="text" id="inputNombre" placeholder="Tu nombre">
+
+                <label for="inputDocumentoRegistro">Documento:</label>
+                <input type="text" id="inputDocumentoRegistro" inputmode="numeric" maxlength="10" readonly>
+
+                <button id="btnRegistrar">Registrarme</button>
+                <div id="msgRegistro" class="msg oculto"></div>
+            </div>
         </section>
 
-        <!-- Banner con el resultado de la ultima inscripcion -->
-        <div id="banner" class="banner oculto"></div>
+        <!-- ===== PANTALLA 2: APP (oculta hasta identificarse) ===== -->
+        <section id="pantallaApp" class="oculto">
+            <div class="barra-usuario">
+                <span id="saludoUsuario"></span>
+                <button id="btnSalir" class="boton-secundario">Salir</button>
+            </div>
 
-        <!-- Paso 2: lista de eventos -->
-        <section>
+            <div id="banner" class="banner oculto"></div>
+
             <h2>Eventos disponibles</h2>
             <div id="listaEventos"></div>
+
+            <h2>Mis eventos inscritos</h2>
+            <div id="misEventos"></div>
         </section>
     </main>
 

@@ -4,7 +4,14 @@ package co.edu.uco.expuco.datos.sql;
 public final class UsuarioSql {
 
 	public static final String CONSULTAR_TODOS =
-			"SELECT id, nombre FROM usuario ORDER BY id";
+			"SELECT id, nombre, documento FROM usuario ORDER BY id";
+
+	public static final String CONSULTAR_POR_DOCUMENTO =
+			"SELECT id, nombre, documento FROM usuario WHERE documento = ?";
+
+	// El id lo genera SQL Server (IDENTITY), por eso no lo incluimos en el INSERT.
+	public static final String CREAR =
+			"INSERT INTO usuario (nombre, documento) VALUES (?, ?)";
 
 	private UsuarioSql() {
 		super();

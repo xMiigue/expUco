@@ -1,4 +1,4 @@
-package co.edu.uco.expuco.datos.dao.h2;
+package co.edu.uco.expuco.datos.dao.sqlserver;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,10 +15,10 @@ import co.edu.uco.expuco.entidad.EventoEntidad;
 import co.edu.uco.expuco.entidad.InscripcionEntidad;
 import co.edu.uco.expuco.transversal.excepcion.ExpUcoException;
 
-// Implementacion del InscripcionDAO sobre H2 usando JDBC puro.
-public final class InscripcionH2DAO extends SQLDAO implements InscripcionDAO {
+// Implementacion del InscripcionDAO sobre SQL Server usando JDBC puro.
+public final class InscripcionSqlServerDAO extends SQLDAO implements InscripcionDAO {
 
-	public InscripcionH2DAO(final Connection conexion) {
+	public InscripcionSqlServerDAO(final Connection conexion) {
 		super(conexion);
 	}
 

@@ -14,7 +14,7 @@ public final class ConsultarEventosFachadaImpl implements ConsultarEventosFachad
 
 	@Override
 	public List<EventoDTO> ejecutar() {
-		final FabricaDAO fabricaDAO = FabricaDAO.obtenerInstancia(FabricaEnum.H2);
+		final FabricaDAO fabricaDAO = FabricaDAO.obtenerInstancia(FabricaEnum.SQL_SERVER);
 		try {
 			fabricaDAO.abrirConexion();
 			return new ConsultarEventosCasoUsoImpl(fabricaDAO).ejecutar();

@@ -7,16 +7,17 @@ import java.sql.SQLException;
 import co.edu.uco.expuco.datos.dao.EventoDAO;
 import co.edu.uco.expuco.datos.dao.InscripcionDAO;
 import co.edu.uco.expuco.datos.dao.UsuarioDAO;
-import co.edu.uco.expuco.datos.fabrica.h2.H2FabricaDAO;
+import co.edu.uco.expuco.datos.fabrica.sqlserver.SqlServerFabricaDAO;
 import co.edu.uco.expuco.transversal.excepcion.ExpUcoException;
 
 // Fabrica abstracta de DAO. Tambien maneja la CONEXION y la TRANSACCION de forma explicita.
-// Se conecta a la MISMA base H2 en memoria que Spring crea al arrancar (jdbc:h2:mem:expuco).
+// Se conecta al MISMO SQL Server (base ExpUco) que usa Spring al arrancar.
 public abstract class FabricaDAO {
 
-	private static final String URL = "jdbc:h2:mem:expuco;DB_CLOSE_DELAY=-1";
+	private static final String URL =
+			"jdbc:sqlserver://localhost:1435;databaseName=ExpUco;encrypt=false;trustServerCertificate=true";
 	private static final String USUARIO = "sa";
-	private static final String CLAVE = "";
+	private static final String CLAVE = "ExpUco2026!";
 
 	protected Connection conexion;
 
@@ -77,8 +78,8 @@ public abstract class FabricaDAO {
 	}
 
 	public static FabricaDAO obtenerInstancia(final FabricaEnum tipo) {
-		if (FabricaEnum.H2.equals(tipo)) {
-			return new H2FabricaDAO();
+		if (FabricaEnum.SQL_SERVER.equals(tipo)) {
+			return new SqlServerFabricaDAO();
 		}
 		throw ExpUcoException.crear("Tipo de fabrica no soportado.", "FabricaEnum no reconocido: " + tipo);
 	}

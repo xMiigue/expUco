@@ -41,10 +41,10 @@
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 
-		<!-- Base de datos H2 en memoria (cero configuracion); la version la gestiona Spring Boot -->
+		<!-- Driver de SQL Server (mssql-jdbc); la version la gestiona Spring Boot -->
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
