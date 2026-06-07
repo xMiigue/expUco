@@ -48,3 +48,13 @@ VALUES (5, 'Bootcamp Robotica', 'Laboratorio de productividad',
         DATEADD(DAY, -5, CAST(CAST(GETDATE() AS DATE) AS DATETIME2)),
         DATEADD(HOUR, 8, DATEADD(DAY, 4, CAST(CAST(GETDATE() AS DATE) AS DATETIME2))),
         20);
+
+-- 6) Taller de Innovacion: dentro de 6 dias 15:00-18:00, horario unico (sin choque),
+--    inscripcion ABIERTA y con cupos -> SE PUEDE inscribir.
+INSERT INTO evento (id, nombre, lugar, fecha_inicio, fecha_fin, inscripcion_inicio, inscripcion_fin, capacidad)
+VALUES (6, 'Taller de Innovacion', 'Centro de Emprendimiento UCO',
+        DATEADD(HOUR, 15, DATEADD(DAY, 6, CAST(CAST(GETDATE() AS DATE) AS DATETIME2))),
+        DATEADD(HOUR, 18, DATEADD(DAY, 6, CAST(CAST(GETDATE() AS DATE) AS DATETIME2))),
+        DATEADD(DAY, -5, CAST(CAST(GETDATE() AS DATE) AS DATETIME2)),
+        DATEADD(HOUR, 14, DATEADD(DAY, 6, CAST(CAST(GETDATE() AS DATE) AS DATETIME2))),
+        40);
