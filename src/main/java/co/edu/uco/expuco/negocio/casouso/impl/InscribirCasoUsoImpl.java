@@ -68,12 +68,25 @@ public final class InscribirCasoUsoImpl implements InscribirCasoUso {
 		// REGLA 4 - EDAD: TODA persona debe ser mayor o igual a 18 anios, SIN IMPORTAR EL ROL.
 		if (persona.getFechaNacimiento() == null) {
 			return fallo("La fecha de nacimiento es obligatoria.");
-		}
-		final int edad = Period.between(persona.getFechaNacimiento(), LocalDate.now()).getYears();
+			}
+		 final int edad = Period.between(persona.getFechaNacimiento(), LocalDate.now()).getYears();
 		if (edad < EDAD_MINIMA) {
-			return fallo("Debes ser mayor o igual a 18 anios para inscribirte.");
+		return fallo("Debes ser mayor o igual a 18 anios para inscribirte.");
+		} 
+		
+		//Regla 5 si la persona ya tiene un evento pendiente
+		if (usuario != null) {
+		    final List<EventoEntidad> eventosDelUsuario =
+		            fabricaDAO.obtenerInscripcionDAO().consultarEventosPorUsuario(usuario.getId());
+		    for (final EventoEntidad otro: eventosDelUsuario) {
+		        if (otro.getFechaFin() != null && otro.getFechaFin().isAfter(ahora)) {
+		            return fallo("Ya tienes un evento pendiente por asistir");
+		        }
+		    }
 		}
-
+			
+			
+			
 		// Si la persona no existe, la creamos ahora (ya pasaron todas las reglas).
 		if (usuario == null) {
 			fabricaDAO.obtenerUsuarioDAO().crear(persona);

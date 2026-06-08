@@ -48,3 +48,4 @@ VALUES (5, 'Bootcamp Robotica', 'Laboratorio de productividad',
         DATEADD(DAY, -5, CAST(CAST(GETDATE() AS DATE) AS DATETIME2)),
         DATEADD(HOUR, 8, DATEADD(DAY, 4, CAST(CAST(GETDATE() AS DATE) AS DATETIME2))),
         20);
+
